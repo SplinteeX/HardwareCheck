@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.R
-
+// --
 @Composable
 fun HardwareScreen(deviceInfo: DeviceInfo) {
     Column(

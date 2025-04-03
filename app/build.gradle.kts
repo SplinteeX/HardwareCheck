@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.androidx.gridlayout)
+    implementation(libs.androidx.navigation.runtime.android)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

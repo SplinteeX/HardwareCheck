@@ -6,7 +6,6 @@ import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.*
-import android.system.Os
 import com.example.hardwarecheck.model.DeviceInfo
 import java.io.File
 import java.util.*
@@ -67,13 +66,9 @@ object HardwareInfoUtils {
     @SuppressLint("NewApi")
     private fun getPhysicalMemory(context: Context): String {
         return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 val memInfo = ActivityManager.MemoryInfo()
                 (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memInfo)
                 "${(memInfo.totalMem / (1024 * 1024 * 1024))} GB"
-            } else {
-                "Unknown"
-            }
         } catch (e: Exception) {
             "Unknown"
         }
@@ -109,14 +104,16 @@ object HardwareInfoUtils {
         return try {
             if (isEmulator()) {
                 "Running on Emulator: GPU info may not be accurate"
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                val glRenderer = android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_RENDERER) ?: "Unknown Renderer"
-                val glVendor = android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_VENDOR) ?: "Unknown Vendor"
-                val glVersion = android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_VERSION) ?: "Unknown Version"
+            } else {
+                val glRenderer =
+                    android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_RENDERER)
+                        ?: "Unknown Renderer"
+                val glVendor = android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_VENDOR)
+                    ?: "Unknown Vendor"
+                val glVersion = android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_VERSION)
+                    ?: "Unknown Version"
 
                 "GPU Renderer: $glRenderer\nGPU Vendor: $glVendor\nOpenGL Version: $glVersion"
-            } else {
-                "GPU Info requires API 17+"
             }
         } catch (e: Exception) {
             "GPU Unavailable: ${e.localizedMessage}"

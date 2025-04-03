@@ -12,6 +12,8 @@ material = "1.11.0"
 activity = "1.8.2"
 lifecycle = "2.7.0"
 gridlayout = "1.0.0"
+navigationRuntimeAndroid = "2.9.0-alpha09"
+navigationCompose = "2.8.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +34,8 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+androidx-navigation-runtime-android = { group = "androidx.navigation", name = "navigation-runtime-android", version.ref = "navigationRuntimeAndroid" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

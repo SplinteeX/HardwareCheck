@@ -1,6 +1,10 @@
 package com.example.hardwarecheck.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -11,14 +15,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.accompanist.pager.*
-import kotlinx.coroutines.launch
 import com.example.hardwarecheck.R
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun GuideScreen() {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(pageCount = { 3 })
     val scope = rememberCoroutineScope()
 
     val pages = listOf(
@@ -45,7 +47,6 @@ fun GuideScreen() {
             .padding(16.dp)
     ) {
         HorizontalPager(
-            count = pages.size,
             state = pagerState,
             modifier = Modifier.weight(1f)
         ) { page ->
@@ -72,11 +73,17 @@ fun GuideScreen() {
                 Text("Back")
             }
 
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                activeColor = Color.Blue,
-                inactiveColor = Color.LightGray
-            )
+            Row(horizontalArrangement = Arrangement.Center) {
+                repeat(pages.size) { index ->
+                    val color = if (pagerState.currentPage == index) Color.Blue else Color.LightGray
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .padding(4.dp)
+                            .background(color = color, shape = CircleShape)
+                    )
+                }
+            }
 
             TextButton(
                 onClick = {
@@ -84,6 +91,7 @@ fun GuideScreen() {
                         scope.launch {
                             pagerState.animateScrollToPage(pagerState.currentPage + 1)
                         }
+                    } else {
                     }
                 }
             ) {
@@ -136,7 +144,7 @@ fun TutorialPageContent(page: TutorialPage) {
             text = page.description,
             fontSize = 14.sp,
             color = Color.Gray,
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = 8.dp),
         )
     }
 }

@@ -9,11 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.hardwarecheck.navigation.BottomNavigationBar
 import com.example.hardwarecheck.navigation.Screen
@@ -39,13 +41,22 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun MainApp() {
     val navController = rememberNavController()
     val context = LocalContext.current
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    val currentDestination = navBackStackEntry?.destination
+    val isGuideScreen = currentDestination?.route == "guide"
 
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController) }
+        bottomBar = {
+            if (!isGuideScreen) {
+                BottomNavigationBar(navController)
+            }
+        }
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -65,7 +76,9 @@ fun MainApp() {
                 ProfileScreen(navController = navController)
             }
             composable("guide") {
-                GuideScreen()
+                GuideScreen(onFinish = {
+                    navController.popBackStack()
+                })
             }
         }
     }

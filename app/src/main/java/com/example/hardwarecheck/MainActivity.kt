@@ -20,8 +20,10 @@ import com.example.hardwarecheck.navigation.Screen
 import com.example.hardwarecheck.screens.HardwareScreen
 import com.example.hardwarecheck.screens.OverviewScreen
 import com.example.hardwarecheck.screens.ProfileScreen
+import com.example.hardwarecheck.screens.GuideScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,13 +53,19 @@ fun MainApp() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Hardware.route) {
-                HardwareScreen(HardwareInfoUtils.collectDeviceInfo(context))
+                HardwareScreen(
+                    deviceInfo = HardwareInfoUtils.collectDeviceInfo(context),
+                    navController = navController
+                )
             }
             composable(Screen.Overview.route) {
-                OverviewScreen()
+                OverviewScreen(navController = navController)
             }
             composable(Screen.Profile.route) {
-                ProfileScreen()
+                ProfileScreen(navController = navController)
+            }
+            composable("guide") {
+                GuideScreen()
             }
         }
     }

@@ -22,21 +22,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.R
-// --
+import androidx.navigation.NavController
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Arrangement
+
 @Composable
-fun HardwareScreen(deviceInfo: DeviceInfo) {
+fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        Text(
-            text = "Hardware Specifications",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(vertical = 20.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Hardware Specifications",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+            TutorialTopIcon(onHelpClick = {
+                navController.navigate("guide")
+            })
+        }
 
         listOf(
             Triple(R.drawable.os, "Device Model", deviceInfo.model),

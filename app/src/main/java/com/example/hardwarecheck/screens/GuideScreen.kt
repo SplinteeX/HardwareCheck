@@ -47,6 +47,20 @@ fun GuideScreen(onFinish: () -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            IconButton(onClick = onFinish) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_clear),
+                    contentDescription = "Exit",
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.weight(1f)
@@ -108,6 +122,7 @@ fun GuideScreen(onFinish: () -> Unit) {
             }
         }
     }
+
 }
 
 data class TutorialPage(

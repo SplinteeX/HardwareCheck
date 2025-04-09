@@ -1,6 +1,7 @@
 package com.example.hardwarecheck
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,9 +23,47 @@ import com.example.hardwarecheck.screens.OverviewScreen
 import com.example.hardwarecheck.screens.ProfileScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
+
+import com.example.hardwarecheck.database.FirestoreManager
+import com.example.hardwarecheck.model.DeviceInfo
+import com.google.firebase.FirebaseApp
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this)
+
+        val firestoreManager = FirestoreManager()
+
+        // Example device ID
+        val deviceId = "testDevice123456"
+
+        // Example DeviceInfo object
+        val deviceInfo = DeviceInfo(
+            model = "Pixel 7",
+            osInfo = "Android 14",
+            processor = "Google Tensor",
+            memory = "8GB",
+            cores = "8",
+            storage = "128GB",
+            gpu = "Mali-G78",
+            sensors = "Accelerometer, Gyroscope"
+        )
+
+        // Save the device info to Firestore
+        firestoreManager.saveDeviceInfo(deviceId, deviceInfo)
+
+        // Retrieve the device info from Firestore
+        firestoreManager.getDeviceInfo(deviceId) { retrievedDeviceInfo ->
+            if (retrievedDeviceInfo != null) {
+                Log.d("FirestoreTest", "Retrieved Device Info: $retrievedDeviceInfo")
+            } else {
+                Log.d("FirestoreTest", "Failed to retrieve device info")
+            }
+        }
+
         setContent {
             HardwareCheckTheme {
                 Surface(
@@ -37,6 +76,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun MainApp() {
     val navController = rememberNavController()

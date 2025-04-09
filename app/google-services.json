@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "982437369192",
+    "project_id": "hardwarecheck1",
+    "storage_bucket": "hardwarecheck1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982437369192:android:78f095f32037169365f2dd",
+        "android_client_info": {
+          "package_name": "com.example.hardwarecheck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg3loBJY3CP-FpqD_bTUZ0OHSdZW1zNj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,7 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +27,7 @@ import com.example.hardwarecheck.screens.ProfileScreen
 import com.example.hardwarecheck.screens.GuideScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
+import com.example.hardwarecheck.utils.PreferenceHelper
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,15 +44,24 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 @Composable
 fun MainApp() {
-    val navController = rememberNavController()
     val context = LocalContext.current
+    val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-
     val currentDestination = navBackStackEntry?.destination
     val isGuideScreen = currentDestination?.route == "guide"
+
+    val shouldShowGuide = remember {
+        PreferenceHelper.shouldShowGuide(context)
+    }
+
+    LaunchedEffect(Unit) {
+        if (shouldShowGuide) {
+            navController.navigate("guide")
+            PreferenceHelper.setGuideShown(context, true)
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -83,6 +95,7 @@ fun MainApp() {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

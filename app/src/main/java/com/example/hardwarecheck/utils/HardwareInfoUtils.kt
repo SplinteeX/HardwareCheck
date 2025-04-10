@@ -51,9 +51,9 @@ object HardwareInfoUtils {
     private fun getProcessorInfo(): String {
         return when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                Build.SOC_MODEL?.let { socModel ->
+                Build.SOC_MODEL.let { socModel ->
                     "$socModel\n${Build.HARDWARE} (${Build.SUPPORTED_ABIS.joinToString()})"
-                } ?: "${Build.HARDWARE} (${Build.SUPPORTED_ABIS.joinToString()})"
+                }
             }
             else -> {
                 "${Build.HARDWARE}\n${Build.SUPPORTED_ABIS.joinToString()}"

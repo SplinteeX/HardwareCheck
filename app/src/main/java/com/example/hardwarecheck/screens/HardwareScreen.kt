@@ -1,12 +1,6 @@
 package com.example.hardwarecheck.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -22,32 +16,52 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.R
-// --
+import androidx.navigation.NavController
+
 @Composable
-fun HardwareScreen(deviceInfo: DeviceInfo) {
+fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        Text(
-            text = "Hardware Specifications",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(vertical = 20.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Hardware Specifications",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+            TutorialTopIcon(onHelpClick = {
+                navController.navigate("guide")
+            })
+        }
 
-        listOf(
+        val hardwareInfoItems = listOf(
             Triple(R.drawable.os, "Device Model", deviceInfo.model),
             Triple(R.drawable.os, "Operating System", deviceInfo.osInfo),
             Triple(R.drawable.memory, "Processor", deviceInfo.processor),
             Triple(R.drawable.memory, "CPU Cores", deviceInfo.cores),
             Triple(R.drawable.memory, "Memory (RAM)", deviceInfo.memory),
+            Triple(R.drawable.display, "Screen", deviceInfo.screen),
             Triple(R.drawable.storage, "Storage", deviceInfo.storage),
             Triple(R.drawable.gpu, "GPU", deviceInfo.gpu),
-            Triple(R.drawable.sensors, "Sensors", deviceInfo.sensors)
-        ).forEach { (iconRes, title, value) ->
+            Triple(R.drawable.sensors, "Sensors", deviceInfo.sensors),
+            Triple(R.drawable.battery, "Battery", deviceInfo.battery),
+            Triple(R.drawable.progress, "Uptime", deviceInfo.uptime),
+            Triple(R.drawable.baseband, "Baseband", deviceInfo.baseband),
+            Triple(R.drawable.build, "Build Date", deviceInfo.buildDate),
+            Triple(R.drawable.wifi, "Wi-Fi Version", deviceInfo.wifiVersion),
+            Triple(R.drawable.bluetooth, "Bluetooth Version", deviceInfo.bluetoothVersion),
+        )
+
+        hardwareInfoItems.forEach { (iconRes, title, value) ->
             InfoItemWithIcon(
                 icon = painterResource(iconRes),
                 title = title,

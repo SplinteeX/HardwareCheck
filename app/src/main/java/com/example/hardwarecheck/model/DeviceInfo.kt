@@ -8,12 +8,12 @@ data class DeviceInfo(
     val cores: String = "",
     val storage: String = "",
     val gpu: String = "",
-    val sensors: String = ""
-    val screen: String,
-    val battery: String,
-    val uptime: String,
-    val baseband: String,
-    val buildDate: String,
-    val wifiVersion: String,
-    val bluetoothVersion: String
+    val sensors: String = "",
+    val screen: String = "",
+    val battery: String = "",
+    val uptime: String = "",
+    val baseband: String = "",
+    val buildDate: String = "",
+    val wifiVersion: String = "",
+    val bluetoothVersion: String = ""
 )

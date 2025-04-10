@@ -17,7 +17,14 @@ class FirestoreManager {
             "cores" to deviceInfo.cores,
             "storage" to deviceInfo.storage,
             "gpu" to deviceInfo.gpu,
-            "sensors" to deviceInfo.sensors
+            "sensors" to deviceInfo.sensors,
+            "screen" to deviceInfo.screen,
+            "battery" to deviceInfo.battery,
+            "uptime" to deviceInfo.uptime,
+            "baseband" to deviceInfo.baseband,
+            "buildDate" to deviceInfo.buildDate,
+            "wifiVersion" to deviceInfo.wifiVersion,
+            "bluetoothVersion" to deviceInfo.bluetoothVersion
         )
 
         db.collection("devices").document(deviceId)

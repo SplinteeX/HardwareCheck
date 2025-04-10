@@ -3,6 +3,7 @@ package com.example.hardwarecheck.utils
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.*
@@ -22,9 +23,18 @@ object HardwareInfoUtils {
             cores = getCoresCount(),
             storage = getStorageInfo(),
             gpu = getGpuInfo(),
-            sensors = getSensorsCount(context)
+            sensors = getSensorsCount(context),
+            screen = getScreenInfo(context),
+            battery = getBatteryInfo(context),
+            uptime = getUptime(),
+            baseband = Build.getRadioVersion() ?: "Unknown",
+            buildDate = Build.TIME.let { Date(it).toString() },
+            wifiVersion = getWifiVersion(),
+            bluetoothVersion = getBluetoothVersion()
         )
     }
+
+
 
     private fun getDeviceModel(): String {
         return "${Build.MANUFACTURER.replaceFirstChar {
@@ -147,4 +157,55 @@ object HardwareInfoUtils {
             "Sensors Unavailable"
         }
     }
+    private fun getBatteryInfo(context: Context): String {
+        return try {
+            val intent = context.registerReceiver(null, android.content.IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val level = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+            val scale = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+            val percent = if (level >= 0 && scale > 0) (level * 100 / scale) else -1
+            "Battery: $percent%"
+        } catch (e: Exception) {
+            "Battery Info Unavailable"
+        }
+    }
+
+    private fun getScreenInfo(context: Context): String {
+        return try {
+            val metrics = context.resources.displayMetrics
+            val width = metrics.widthPixels
+            val height = metrics.heightPixels
+            val density = metrics.densityDpi
+            "${width}x$height @ ${density}dpi"
+        } catch (e: Exception) {
+            "Screen Info Unavailable"
+        }
+    }
+
+    private fun getUptime(): String {
+        val uptimeMillis = SystemClock.elapsedRealtime()
+        val seconds = uptimeMillis / 1000 % 60
+        val minutes = uptimeMillis / (1000 * 60) % 60
+        val hours = uptimeMillis / (1000 * 60 * 60) % 24
+        val days = uptimeMillis / (1000 * 60 * 60 * 24)
+        return "${days}d ${hours}h ${minutes}m ${seconds}s"
+    }
+    private fun getWifiVersion(): String {
+        return when (Build.VERSION.SDK_INT) {
+            in 30..Int.MAX_VALUE -> "Wi-Fi 6/6E or later"
+            in 29..29 -> "Wi-Fi 6"
+            in 21..28 -> "Wi-Fi 5"
+            in 14..20 -> "Wi-Fi 4"
+            else -> "Legacy"
+        }
+    }
+
+    private fun getBluetoothVersion(): String {
+        return when {
+            Build.VERSION.SDK_INT >= 33 -> "Bluetooth 5.3+"
+            Build.VERSION.SDK_INT >= 31 -> "Bluetooth 5.2"
+            Build.VERSION.SDK_INT >= 29 -> "Bluetooth 5.0/5.1"
+            else -> "Unknown"
+        }
+    }
+
 }

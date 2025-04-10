@@ -49,7 +49,7 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
             Triple(R.drawable.memory, "Processor", deviceInfo.processor),
             Triple(R.drawable.memory, "CPU Cores", deviceInfo.cores),
             Triple(R.drawable.memory, "Memory (RAM)", deviceInfo.memory),
-            Triple(R.drawable.memory, "Screen", deviceInfo.screen),
+            Triple(R.drawable.display, "Screen", deviceInfo.screen),
             Triple(R.drawable.storage, "Storage", deviceInfo.storage),
             Triple(R.drawable.gpu, "GPU", deviceInfo.gpu),
             Triple(R.drawable.sensors, "Sensors", deviceInfo.sensors),

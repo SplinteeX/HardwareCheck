@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,6 +21,8 @@ fun BottomNavigationBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    val colorScheme = MaterialTheme.colorScheme
+
     NavigationBar {
         items.forEach { screen ->
             val icon = when (screen) {
@@ -35,14 +36,27 @@ fun BottomNavigationBar(navController: NavController) {
                 Screen.Profile -> R.string.profile
             })
 
+            val selected = currentRoute == screen.route
+
             NavigationBarItem(
-                icon = { Icon(icon, null, tint = if (currentRoute == screen.route) Color.Blue else Color.Gray) },
+                icon = {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = if (selected) colorScheme.onTertiary else colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
+                },
                 label = { Text(label) },
-                selected = currentRoute == screen.route,
-                onClick = { navController.navigate(screen.route) {
-                    popUpTo(navController.graph.startDestinationId)
-                    launchSingleTop = true
-                }}
+                selected = selected,
+                onClick = {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.startDestinationId)
+                        launchSingleTop = true
+                    }
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = colorScheme.tertiary
+                )
             )
         }
     }

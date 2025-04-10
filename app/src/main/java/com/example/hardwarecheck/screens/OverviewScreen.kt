@@ -58,8 +58,16 @@ fun OverviewScreen(
             )
             Switch(
                 checked = isDarkTheme,
-                onCheckedChange = { themeViewModel.toggleTheme() }
+                onCheckedChange = { themeViewModel.toggleTheme() },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = MaterialTheme.colorScheme.tertiary,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.surfaceVariant,
+                    checkedTrackColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.4f),
+                    uncheckedTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+                )
             )
+
+
         }
     }
 }

@@ -133,14 +133,15 @@ data class TutorialPage(
 
 @Composable
 fun TutorialPageContent(page: TutorialPage) {
+    val colorScheme = MaterialTheme.colorScheme
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(32.dp)
-            .background(Color.White, shape = RoundedCornerShape(16.dp)),
+            .padding(32.dp),
         shape = RoundedCornerShape(16.dp),
-        shadowElevation = 8.dp,
-        color = Color.White
+        tonalElevation = 8.dp,
+        color = colorScheme.surface // Automatically adjusts for light/dark mode
     ) {
         Column(
             modifier = Modifier
@@ -149,17 +150,17 @@ fun TutorialPageContent(page: TutorialPage) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Icon
+            // Icon circle
             Box(
                 modifier = Modifier
                     .size(150.dp)
-                    .background(MaterialTheme.colorScheme.primaryContainer, shape = CircleShape),
+                    .background(colorScheme.primaryContainer, shape = CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(id = page.icon),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    tint = colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(60.dp)
                 )
             }
@@ -172,6 +173,7 @@ fun TutorialPageContent(page: TutorialPage) {
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
+                color = colorScheme.onSurface,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
@@ -181,7 +183,7 @@ fun TutorialPageContent(page: TutorialPage) {
             Text(
                 text = page.description,
                 style = MaterialTheme.typography.bodyMedium.copy(fontSize = 17.sp),
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                color = colorScheme.onSurface.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 8.dp)
             )

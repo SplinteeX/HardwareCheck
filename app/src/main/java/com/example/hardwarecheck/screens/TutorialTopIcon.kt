@@ -18,7 +18,7 @@ fun TutorialTopIcon(onHelpClick: () -> Unit) {
         Icon(
             painter = painterResource(R.drawable.baseline_help_outline_24),
             contentDescription = "Guide",
-            tint = Color.Blue,
+            tint = MaterialTheme.colorScheme.tertiary,
             modifier = Modifier.size(28.dp)
         )
     }

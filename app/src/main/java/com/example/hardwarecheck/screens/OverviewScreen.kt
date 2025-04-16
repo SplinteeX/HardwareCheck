@@ -14,6 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.navigation.NavController
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 
 
 @Composable
@@ -30,16 +34,28 @@ fun OverviewScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Text(
+                text = "Overview",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(vertical = 20.dp)
+            )
 
+            Row {
+                TutorialTopIcon(onHelpClick = {
+                    navController.navigate("guide")
+                })
 
-        Text(
-            text = "Overview",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(vertical = 20.dp)
-        )
-            TutorialTopIcon(onHelpClick = {
-                navController.navigate("guide")
-            })
-    }   }
+                IconButton(onClick = {
+                    // Handle camera click here
+                    navController.navigate("camera")
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Lock,
+                        contentDescription = "Camera"
+                    )
+                }
+            }
+        }
+    }
 }

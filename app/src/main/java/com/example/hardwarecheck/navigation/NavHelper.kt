@@ -17,6 +17,8 @@ import com.example.hardwarecheck.screens.ProfileScreen
 import com.example.hardwarecheck.utils.HardwareInfoUtils
 import com.example.hardwarecheck.utils.PreferenceHelper
 
+import com.example.hardwarecheck.screens.CameraScreen // Import the screen
+
 @Composable
 fun AppNavHost(
     navController: NavHostController,
@@ -54,8 +56,12 @@ fun AppNavHost(
                 navController.popBackStack()
             })
         }
+        composable("camera") { // <- New camera screen
+            CameraScreen(navController = navController)
+        }
     }
 }
+
 
 @Composable
 fun isGuideScreen(navController: NavHostController): Boolean {

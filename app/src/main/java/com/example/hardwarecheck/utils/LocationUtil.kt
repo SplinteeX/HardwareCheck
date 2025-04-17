@@ -13,8 +13,13 @@ object LocationUtil {
     fun getCityAndCountry(context: Context, onResult: (String) -> Unit) {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
+        val locationRequest = com.google.android.gms.location.LocationRequest.Builder(
+            com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY, 1000L
+        ).build()
+
+        val locationCallback = object : com.google.android.gms.location.LocationCallback() {
+            override fun onLocationResult(locationResult: com.google.android.gms.location.LocationResult) {
+                val location = locationResult.lastLocation
                 if (location != null) {
                     val geocoder = Geocoder(context, Locale.getDefault())
                     val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
@@ -29,9 +34,10 @@ object LocationUtil {
                 } else {
                     onResult("Sijaintia ei saatavilla")
                 }
+                fusedLocationClient.removeLocationUpdates(this)
             }
-            .addOnFailureListener {
-                onResult("Sijainnin haku epäonnistui")
-            }
+        }
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 }

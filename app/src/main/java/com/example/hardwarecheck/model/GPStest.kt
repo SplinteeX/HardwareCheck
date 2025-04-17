@@ -21,8 +21,15 @@ fun getLocation(): String {
 
 
 
+fun getCityAndCountry(): String {
+    val jsonStr = getLocation()
+    val json = JsonParser.parseString(jsonStr).asJsonObject
+    val city = json["city"].asString
+    val country = json["country_name"].asString
+    return "Sijaintisi: $city, $country"
+}
 
 
 fun main() {
-    println(getLocation())
+    println(getCityAndCountry())
 }

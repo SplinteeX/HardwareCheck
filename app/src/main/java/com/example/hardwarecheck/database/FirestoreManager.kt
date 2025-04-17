@@ -58,4 +58,11 @@ class FirestoreManager {
                 callback(null)
             }
     }
+    fun deleteDeviceInfo(deviceId: String) {
+        db.collection("devices").document(deviceId)
+            .delete()
+            .addOnSuccessListener { Log.d("Firestore", "Device info deleted successfully") }
+            .addOnFailureListener { e -> Log.w("Firestore", "Error deleting device info", e) }
+    }
+
 }

@@ -16,7 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.example.hardwarecheck.utils.LocationUtil
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Alignment
+import androidx.compose.ui.Alignment
+
 
 @Composable
 fun OverviewScreen(navController: NavController) {

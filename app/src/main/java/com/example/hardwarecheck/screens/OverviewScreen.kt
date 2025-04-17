@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -15,8 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.example.hardwarecheck.utils.LocationUtil
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.ui.Alignment
+import com.example.hardwarecheck.utils.getCityAndCountryFromIP
 
 
 @Composable
@@ -32,7 +32,8 @@ fun OverviewScreen(navController: NavController) {
                 location = result
             }
         } else {
-            location = "Sijaintilupaa ei myönnetty"
+            // Käytetään IP-sijaintia jos lupaa ei saatu
+            location = getCityAndCountryFromIP()
         }
     }
 
@@ -74,7 +75,7 @@ fun OverviewScreen(navController: NavController) {
             })
         }
 
-        // Location Card
+        // Sijainti-kortti
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -88,6 +89,6 @@ fun OverviewScreen(navController: NavController) {
             }
         }
 
-        // Add more overview cards if needed
+        // Lisää muita kortteja tähän
     }
 }

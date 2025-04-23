@@ -45,16 +45,6 @@ fun OverviewScreen(navController: NavController) {
                 TutorialTopIcon(onHelpClick = {
                     navController.navigate("guide")
                 })
-
-                IconButton(onClick = {
-                    // Handle camera click here
-                    navController.navigate("camera")
-                }) {
-                    Icon(
-                        imageVector = Icons.Filled.Lock,
-                        contentDescription = "Camera"
-                    )
-                }
             }
         }
     }

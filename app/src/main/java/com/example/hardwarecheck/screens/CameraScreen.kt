@@ -44,7 +44,7 @@ fun CameraScreen(navController: NavController) {
     val detectedObjects = remember { mutableStateOf<List<DetectedObject>>(emptyList()) }
     // State to track if camera is initialized
     val cameraInitialized = remember { mutableStateOf(false) }
-
+    val cameraActive = remember { mutableStateOf(true) }
     // Permission state
     val hasCameraPermission = remember {
         mutableStateOf(
@@ -104,13 +104,18 @@ fun CameraScreen(navController: NavController) {
     }
 
     // Bind controller to lifecycle when permission is granted
-    LaunchedEffect(hasCameraPermission.value) {
-        if (hasCameraPermission.value && !cameraInitialized.value) {
+    LaunchedEffect(hasCameraPermission.value, cameraActive.value) {
+        if (hasCameraPermission.value) {
             try {
-                cameraController.bindToLifecycle(lifecycleOwner)
-                cameraInitialized.value = true
+                if (cameraActive.value && !cameraInitialized.value) {
+                    cameraController.bindToLifecycle(lifecycleOwner)
+                    cameraInitialized.value = true
+                } else if (!cameraActive.value && cameraInitialized.value) {
+                    cameraController.unbind()
+                    cameraInitialized.value = false
+                }
             } catch (e: Exception) {
-                Log.e("CameraScreen", "Failed to bind camera", e)
+                Log.e("CameraScreen", "Error managing camera lifecycle", e)
             }
         }
     }
@@ -155,6 +160,14 @@ fun CameraScreen(navController: NavController) {
                         text = "Objects: ${detectedObjects.value.size}",
                         fontSize = 16.sp
                     )
+                    Button(
+                        onClick = {
+                            cameraActive.value = !cameraActive.value
+                        },
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        Text(if (cameraActive.value) "Stop Camera" else "Start Camera")
+                    }
                 }
             }
         }

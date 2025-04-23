@@ -1,14 +1,21 @@
 package com.example.hardwarecheck.database
 
+import android.content.Context
 import android.util.Log
 import com.example.hardwarecheck.model.DeviceInfo
+import com.example.hardwarecheck.utils.PreferenceHelper
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreManager {
     private val db = FirebaseFirestore.getInstance()
 
     // Save DeviceInfo to Firestore
-    fun saveDeviceInfo(deviceId: String, deviceInfo: DeviceInfo) {
+    fun saveDeviceInfo(context: Context, deviceId: String, deviceInfo: DeviceInfo) {
+        if (!PreferenceHelper.isSaveDataEnabled(context)) {
+            Log.d("Firestore", "Data saving is disabled by user preference")
+            return
+        }
+
         val deviceInfoMap = mapOf(
             "model" to deviceInfo.model,
             "osInfo" to deviceInfo.osInfo,
@@ -51,4 +58,11 @@ class FirestoreManager {
                 callback(null)
             }
     }
+    fun deleteDeviceInfo(deviceId: String) {
+        db.collection("devices").document(deviceId)
+            .delete()
+            .addOnSuccessListener { Log.d("Firestore", "Device info deleted successfully") }
+            .addOnFailureListener { e -> Log.w("Firestore", "Error deleting device info", e) }
+    }
+
 }

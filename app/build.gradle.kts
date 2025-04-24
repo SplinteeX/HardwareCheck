@@ -60,7 +60,6 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.gson)
     implementation(libs.play.services.location)
-    implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.camerax.camera2)
     implementation(libs.camerax.lifecycle)
     implementation(libs.camerax.view)

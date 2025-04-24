@@ -43,8 +43,9 @@ fun ProfileScreen() {
     fun handleSaveDataChange(enabled: Boolean) {
         PreferenceHelper.setSaveDataEnabled(context, enabled)
         isSaveDataEnabled = enabled
-        firestoreManager.saveDeviceInfo(context, deviceId, deviceInfo)
-        if (!enabled) firestoreManager.deleteDeviceInfo(deviceId)
+        if (!enabled) firestoreManager.deleteDeviceInfo(deviceId) else {
+            firestoreManager.saveDeviceInfo(context, deviceId, deviceInfo)
+        }
     }
 
     Column(

@@ -27,7 +27,7 @@ fun DangerZoneCard(
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Text(
-            text = "This will permanently delete your device information from the cloud",
+            text = "This will delete your device information from the cloud",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

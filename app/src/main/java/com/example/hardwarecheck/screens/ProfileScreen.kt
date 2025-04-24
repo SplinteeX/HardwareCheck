@@ -20,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.hardwarecheck.database.FirestoreManager
 import com.example.hardwarecheck.utils.PreferenceHelper
-import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.utils.HardwareInfoUtils
 
 @Composable

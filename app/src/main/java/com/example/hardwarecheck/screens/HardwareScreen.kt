@@ -3,8 +3,7 @@ package com.example.hardwarecheck.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,8 +13,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.R
+import com.example.hardwarecheck.model.DeviceInfo
 import androidx.navigation.NavController
 
 @Composable
@@ -24,23 +23,27 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 24.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 20.dp),
+                .padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Hardware Specifications",
-                fontSize = 24.sp,
+                text = "Hardware Specs",
+                style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
-            TutorialTopIcon(onHelpClick = {
-                navController.navigate("guide")
-            })
+            IconButton(onClick = { navController.navigate("guide") }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.os),
+                    contentDescription = "Guide",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
         }
 
         val hardwareInfoItems = listOf(
@@ -61,37 +64,43 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
             Triple(R.drawable.bluetooth, "Bluetooth Version", deviceInfo.bluetoothVersion),
         )
 
-        hardwareInfoItems.forEach { (iconRes, title, value) ->
-            InfoItemWithIcon(
-                icon = painterResource(iconRes),
-                title = title,
-                value = value
-            )
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            hardwareInfoItems.forEach { (iconRes, title, value) ->
+                InfoItemCard(
+                    icon = painterResource(iconRes),
+                    title = title,
+                    value = value
+                )
+            }
         }
     }
 }
 
+
 @Composable
-fun InfoItemWithIcon(icon: Painter, title: String, value: String) {
-    Column(modifier = Modifier.padding(bottom = 20.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+fun InfoItemCard(icon: Painter, title: String, value: String) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 painter = icon,
                 contentDescription = null,
-                tint = Color.Blue,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(28.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = title,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Column {
+                Text(text = title, fontWeight = FontWeight.SemiBold)
+                Text(text = value, style = MaterialTheme.typography.bodySmall)
+            }
         }
-        Text(
-            text = value,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(start = 36.dp)
-        )
     }
 }

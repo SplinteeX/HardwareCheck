@@ -1,18 +1,19 @@
 package com.example.hardwarecheck
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
 import androidx.navigation.compose.rememberNavController
 import com.example.hardwarecheck.database.FirestoreManager
 import com.example.hardwarecheck.navigation.AppNavHost
@@ -20,7 +21,9 @@ import com.example.hardwarecheck.navigation.BottomNavigationBar
 import com.example.hardwarecheck.navigation.isGuideScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
+import com.example.hardwarecheck.utils.LocationUtil
 import com.example.hardwarecheck.utils.PreferenceHelper
+import com.example.hardwarecheck.utils.getCityAndCountryFromIP
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
@@ -35,16 +38,19 @@ class MainActivity : ComponentActivity() {
         val deviceInfo = HardwareInfoUtils.collectDeviceInfo(this)
         val deviceId = android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ANDROID_ID)
 
-        // Check if saving to cloud is enabled before saving
+        // Save device info if enabled
         if (PreferenceHelper.isSaveDataEnabled(this)) {
             firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
         }
 
-        firestoreManager.getDeviceInfo(deviceId) { retrievedDeviceInfo ->
-            if (retrievedDeviceInfo != null) {
-                Log.d("FirestoreTest", "Retrieved Device Info: $retrievedDeviceInfo")
+        // Load location once and store in LocationHolder
+        if (LocationUtil.savedLocation == null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                LocationUtil.getCityAndCountry(this) { result ->
+                    LocationUtil.savedLocation = result
+                }
             } else {
-                Log.d("FirestoreTest", "Failed to retrieve device info")
+                LocationUtil.savedLocation = getCityAndCountryFromIP()
             }
         }
 

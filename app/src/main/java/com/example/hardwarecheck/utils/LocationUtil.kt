@@ -3,14 +3,22 @@ package com.example.hardwarecheck.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Geocoder
-import android.location.Location
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import com.google.android.gms.location.LocationServices
 import java.util.*
 
 object LocationUtil {
+    var savedLocation by mutableStateOf<String?>(null)
 
     @SuppressLint("MissingPermission")
-    fun getCityAndCountry(context: Context, onResult: (String) -> Unit) {
+    fun getCityAndCountry(context: Context, onResult: (String) -> Unit = {}) {
+        savedLocation?.let {
+            onResult(it)
+            return
+        }
+
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
         val locationRequest = com.google.android.gms.location.LocationRequest.Builder(
@@ -27,12 +35,15 @@ object LocationUtil {
                         val address = addresses[0]
                         val city = address.locality ?: ""
                         val country = address.countryName ?: ""
-                        onResult("$city, $country")
+                        savedLocation = "$city, $country"
+                        onResult(savedLocation!!)
                     } else {
-                        onResult("Sijaintia ei löytynyt")
+                        savedLocation = "Sijaintia ei löytynyt"
+                        onResult(savedLocation!!)
                     }
                 } else {
-                    onResult("Sijaintia ei saatavilla")
+                    savedLocation = "Sijaintia ei saatavilla"
+                    onResult(savedLocation!!)
                 }
                 fusedLocationClient.removeLocationUpdates(this)
             }

@@ -1,10 +1,8 @@
 package com.example.hardwarecheck.screens
 
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,47 +11,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.example.hardwarecheck.utils.LocationUtil
-import com.example.hardwarecheck.utils.getCityAndCountryFromIP
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-
 
 @Composable
 fun OverviewScreen(navController: NavController) {
+    val location by remember { derivedStateOf { LocationUtil.savedLocation ?: "Haetaan sijaintia..." } }
     val context = LocalContext.current
-    var location by remember { mutableStateOf("Haetaan sijaintia...") }
 
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            LocationUtil.getCityAndCountry(context) { result ->
-                location = result
-            }
-        } else {
-            // Käytetään IP-sijaintia jos lupaa ei saatu
-            location = getCityAndCountryFromIP()
-        }
-    }
-
+    // Start fetching location if not set yet
     LaunchedEffect(Unit) {
-        val permissionGranted = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (permissionGranted) {
-            LocationUtil.getCityAndCountry(context) { result ->
-                location = result
-            }
-        } else {
-            permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        if (LocationUtil.savedLocation == null) {
+            LocationUtil.getCityAndCountry(context)
         }
     }
 
@@ -76,12 +45,14 @@ fun OverviewScreen(navController: NavController) {
                 modifier = Modifier.padding(vertical = 20.dp)
             )
 
-            TutorialTopIcon(onHelpClick = {
-                navController.navigate("guide")
-            })
+            IconButton(onClick = { navController.navigate("guide") }) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = "Opas"
+                )
+            }
         }
 
-        // Sijainti-kortti
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -98,3 +69,4 @@ fun OverviewScreen(navController: NavController) {
         // Lisää muita kortteja tähän
     }
 }
+

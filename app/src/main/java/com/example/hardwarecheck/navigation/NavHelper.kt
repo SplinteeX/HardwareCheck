@@ -1,5 +1,6 @@
 package com.example.hardwarecheck.navigation
 
+import ProfileScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,9 +14,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.hardwarecheck.screens.GuideScreen
 import com.example.hardwarecheck.screens.HardwareScreen
 import com.example.hardwarecheck.screens.OverviewScreen
-import com.example.hardwarecheck.screens.ProfileScreen
 import com.example.hardwarecheck.utils.HardwareInfoUtils
 import com.example.hardwarecheck.utils.PreferenceHelper
+
+import com.example.hardwarecheck.screens.CameraScreen // Import the screen
 
 @Composable
 fun AppNavHost(
@@ -47,15 +49,19 @@ fun AppNavHost(
             OverviewScreen(navController = navController)
         }
         composable(Screen.Profile.route) {
-            ProfileScreen(navController = navController)
+            ProfileScreen()
         }
         composable("guide") {
             GuideScreen(onFinish = {
                 navController.popBackStack()
             })
         }
+        composable("camera") { // <- New camera screen
+            CameraScreen(navController = navController)
+        }
     }
 }
+
 
 @Composable
 fun isGuideScreen(navController: NavHostController): Boolean {

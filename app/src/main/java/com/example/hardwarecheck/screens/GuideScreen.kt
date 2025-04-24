@@ -11,18 +11,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hardwarecheck.R
+import com.example.hardwarecheck.utils.PreferenceHelper
 import kotlinx.coroutines.launch
 
 @Composable
 fun GuideScreen(onFinish: () -> Unit) {
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val pagerState = rememberPagerState(pageCount = { 4 })
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     val pages = listOf(
         TutorialPage(
@@ -39,6 +42,11 @@ fun GuideScreen(onFinish: () -> Unit) {
             title = "Enhance the app by sharing your phone details",
             description = "Share your device information to unlock additional features and personalize your experience.",
             icon = R.drawable.ic_magic
+        ),
+        TutorialPage(
+            title = "Control your data",
+            description = "Choose whether to save device details to the cloud for feature enhancement.",
+            icon = R.drawable.build
         )
     )
 
@@ -66,6 +74,30 @@ fun GuideScreen(onFinish: () -> Unit) {
             modifier = Modifier.weight(1f)
         ) { page ->
             TutorialPageContent(page = pages[page])
+        }
+
+        if (pagerState.currentPage == 3) {
+            var saveDataEnabled by remember {
+                mutableStateOf(PreferenceHelper.isSaveDataEnabled(context))
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Save device info to cloud")
+                Spacer(modifier = Modifier.width(8.dp))
+                Switch(
+                    checked = saveDataEnabled,
+                    onCheckedChange = {
+                        saveDataEnabled = it
+                        PreferenceHelper.setSaveDataEnabled(context, it)
+                    }
+                )
+            }
         }
 
         Row(
@@ -122,7 +154,6 @@ fun GuideScreen(onFinish: () -> Unit) {
             }
         }
     }
-
 }
 
 data class TutorialPage(

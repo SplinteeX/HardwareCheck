@@ -18,6 +18,8 @@ navigationRuntimeAndroid = "2.9.0-alpha09"
 navigationCompose = "2.8.9"
 playServicesLocation = "21.3.0"
 gson = "2.10.1"
+camerax = "1.4.2"
+objectDetection = "17.0.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +46,10 @@ androidx-navigation-runtime-android = { group = "androidx.navigation", name = "n
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+camerax-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
+camerax-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }
+camerax-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
+object1-detection = { group = "com.google.mlkit", name = "object-detection", version.ref = "objectDetection" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

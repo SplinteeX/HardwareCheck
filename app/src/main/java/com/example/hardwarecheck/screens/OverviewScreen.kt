@@ -17,6 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.example.hardwarecheck.utils.LocationUtil
 import com.example.hardwarecheck.utils.getCityAndCountryFromIP
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 
 
 @Composable

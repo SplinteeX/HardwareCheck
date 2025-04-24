@@ -14,11 +14,12 @@ sealed class Screen(val route: String) {
     object Hardware : Screen("hardware")
     object Overview : Screen("overview")
     object Profile : Screen("profile")
+    object Camera : Screen("camera")
 }
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf(Screen.Hardware, Screen.Overview, Screen.Profile)
+    val items = listOf(Screen.Hardware, Screen.Overview, Screen.Camera, Screen.Profile)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -28,11 +29,13 @@ fun BottomNavigationBar(navController: NavController) {
                 Screen.Hardware -> Icons.Filled.Settings
                 Screen.Overview -> Icons.Filled.Info
                 Screen.Profile -> Icons.Filled.Edit
+                Screen.Camera -> Icons.Filled.Face
             }
             val label = stringResource(when (screen) {
                 Screen.Hardware -> R.string.hardware
                 Screen.Overview -> R.string.overview
                 Screen.Profile -> R.string.profile
+                Screen.Camera -> R.string.camera
             })
 
             NavigationBarItem(

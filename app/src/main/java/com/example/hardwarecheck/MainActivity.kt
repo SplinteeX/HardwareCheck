@@ -20,6 +20,7 @@ import com.example.hardwarecheck.navigation.BottomNavigationBar
 import com.example.hardwarecheck.navigation.isGuideScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
+import com.example.hardwarecheck.utils.PreferenceHelper
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +35,10 @@ class MainActivity : ComponentActivity() {
         val deviceInfo = HardwareInfoUtils.collectDeviceInfo(this)
         val deviceId = android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ANDROID_ID)
 
-        firestoreManager.saveDeviceInfo(deviceId, deviceInfo)
+        // Check if saving to cloud is enabled before saving
+        if (PreferenceHelper.isSaveDataEnabled(this)) {
+            firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
+        }
 
         firestoreManager.getDeviceInfo(deviceId) { retrievedDeviceInfo ->
             if (retrievedDeviceInfo != null) {

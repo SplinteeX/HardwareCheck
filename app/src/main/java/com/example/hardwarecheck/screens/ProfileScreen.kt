@@ -20,11 +20,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.hardwarecheck.database.FirestoreManager
 import com.example.hardwarecheck.utils.PreferenceHelper
+import com.example.hardwarecheck.model.DeviceInfo
+import com.example.hardwarecheck.utils.HardwareInfoUtils
 
 @Composable
 fun ProfileScreen() {
     val context = LocalContext.current
     val firestoreManager = FirestoreManager()
+    val deviceInfo = HardwareInfoUtils.collectDeviceInfo(context)
     val deviceId = android.provider.Settings.Secure.getString(
         context.contentResolver,
         android.provider.Settings.Secure.ANDROID_ID
@@ -40,6 +43,7 @@ fun ProfileScreen() {
     fun handleSaveDataChange(enabled: Boolean) {
         PreferenceHelper.setSaveDataEnabled(context, enabled)
         isSaveDataEnabled = enabled
+        firestoreManager.saveDeviceInfo(context, deviceId, deviceInfo)
         if (!enabled) firestoreManager.deleteDeviceInfo(deviceId)
     }
 

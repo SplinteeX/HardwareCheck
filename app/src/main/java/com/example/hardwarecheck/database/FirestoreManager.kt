@@ -2,13 +2,13 @@ package com.example.hardwarecheck.database
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.ui.platform.LocalContext
 import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.utils.PreferenceHelper
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreManager {
     private val db = FirebaseFirestore.getInstance()
-
     // Save DeviceInfo to Firestore
     fun saveDeviceInfo(context: Context, deviceId: String, deviceInfo: DeviceInfo) {
         if (!PreferenceHelper.isSaveDataEnabled(context)) {

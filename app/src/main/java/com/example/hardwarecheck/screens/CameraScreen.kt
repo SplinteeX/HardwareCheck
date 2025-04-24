@@ -20,7 +20,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
@@ -31,21 +30,16 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.objects.DetectedObject
 import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
-import java.nio.ByteBuffer
 
 @Composable
 fun CameraScreen(navController: NavController) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
 
-    // State for brightness value
     val brightness = remember { mutableStateOf(0f) }
-    // State for detected objects
     val detectedObjects = remember { mutableStateOf<List<DetectedObject>>(emptyList()) }
-    // State to track if camera is initialized
     val cameraInitialized = remember { mutableStateOf(false) }
     val cameraActive = remember { mutableStateOf(true) }
-    // Permission state
     val hasCameraPermission = remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(
@@ -55,7 +49,6 @@ fun CameraScreen(navController: NavController) {
         )
     }
 
-    // Permission launcher
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
@@ -77,10 +70,10 @@ fun CameraScreen(navController: NavController) {
 
     val cameraController = remember {
         LifecycleCameraController(context).apply {
-            // Enable both preview and analysis
+
             setEnabledUseCases(CameraController.IMAGE_ANALYSIS or CameraController.IMAGE_CAPTURE)
 
-            // Set up combined image analyzer
+
             setImageAnalysisAnalyzer(
                 ContextCompat.getMainExecutor(context),
                 CombinedAnalyzer(

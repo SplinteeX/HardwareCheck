@@ -3,6 +3,8 @@ package com.example.hardwarecheck.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,14 +35,14 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "HardwareSpecs",
+                text = "Hardware Specifications",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
             IconButton(onClick = { navController.navigate("guide") }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.os),
+                    imageVector = Icons.Default.Info,
                     contentDescription = "Guide",
                     tint = MaterialTheme.colorScheme.primary
                 )

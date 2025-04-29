@@ -140,8 +140,9 @@ fun CameraScreen(navController: NavController) {
             ) {
                 Text(
                     text = "Camera Analysis",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Column(horizontalAlignment = Alignment.End) {

@@ -33,9 +33,10 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Hardware Specs",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
+                text = "HardwareSpecs",
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
             )
             IconButton(onClick = { navController.navigate("guide") }) {
                 Icon(

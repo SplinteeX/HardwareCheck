@@ -16,5 +16,6 @@ data class DeviceInfo(
     val buildDate: String = "",
     val wifiVersion: String = "",
     val bluetoothVersion: String = "",
+    val location: String = "",
     var timestamp: com.google.firebase.Timestamp? = null
 )

@@ -7,8 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.hardwarecheck.R
 
 @Composable
 fun ProfileHeader() {
@@ -34,11 +36,11 @@ fun ProfileHeader() {
             Alignment.CenterVertically
         ) {
             Text(
-                text = "Profile Settings",
+                text = stringResource(id = R.string.profile_settings),
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
-                )
+            )
         }
     }
 }

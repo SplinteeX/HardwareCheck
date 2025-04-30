@@ -3,4 +3,74 @@
     <string name="overview">Overview</string>
     <string name="profile">Profile</string>
     <string name="camera">Camera</string>
+
+    <string name="camera_analysis">Camera Analysis</string>
+    <string name="objects">Objects</string>
+    <string name="brightness">Brightness: %.2f%%</string>
+    <string name="objects_detected">Objects Detected</string>
+    <string name="stop_camera">Stop Camera</string>
+    <string name="start_camera">Start Camera</string>
+    <string name="permission_required">Camera permission required to use this feature</string>
+    <string name="language_option">Language</string>
+    <string name="english">English</string>
+    <string name="finnish">Finnish</string>
+    <string name="guide">Guide</string>
+
+    <string name="location">Location</string>
+    <string name="fetching_location">Fetching location...</string>
+    <string name="location_not_found">Location not found</string>
+    <string name="location_unavailable">Location unavailable</string>
+    <string name="last_5_devices">Last 5 Devices</string>
+    <string name="recent_devices">View recently detected devices.</string>
+    <string name="read_more">Read more →</string>
+    <string name="common_specs">Most Common Specs</string>
+    <string name="reported_specs">See frequently reported technical specifications.</string>
+    <string name="app_usage">App Usage by Country</string>
+    <string name="top_countries">Top 10 countries using this app</string>
+    <string name="save_data">Save device info to cloud</string>
+    <string name="connected_to_cloud">Connected to cloud database</string>
+    <string name="local_mode">Local mode (data not synced)</string>
+    <string name="delete_data">Delete Data</string>
+
+    <string name="hardware_specifications">Hardware Specifications</string>
+    <string name="device_model">Device Model</string>
+    <string name="operating_system">Operating System</string>
+    <string name="processor">Processor</string>
+    <string name="cpu_cores">CPU Cores</string>
+    <string name="memory">Memory (RAM)</string>
+    <string name="screen">Screen</string>
+    <string name="storage">Storage</string>
+    <string name="gpu">GPU</string>
+    <string name="sensors">Sensors</string>
+    <string name="battery">Battery</string>
+    <string name="uptime">Uptime</string>
+    <string name="baseband">Baseband</string>
+    <string name="build_date">Build Date</string>
+    <string name="wifi_version">Wi-Fi Version</string>
+    <string name="bluetooth_version">Bluetooth Version</string>
+
+    <string name="guide_exit">Exit</string>
+    <string name="guide_discover_title">Discover your phone specifications</string>
+    <string name="guide_discover_description">Uncover the full potential of your device. Instantly view detailed information about your phone\'s hardware.</string>
+    <string name="guide_test_title">Test your camera and sensors</string>
+    <string name="guide_test_description">Check if everything\'s working as it should. Easily test your phone\'s camera and built-in sensors.</string>
+    <string name="guide_enhance_title">Enhance the app by sharing your phone details</string>
+    <string name="guide_enhance_description">Share your device information to unlock additional features and personalize your experience.</string>
+    <string name="guide_control_title">Control your data</string>
+    <string name="guide_control_description">Choose whether to save device details to the cloud for feature enhancement.</string>
+    <string name="guide_save_data">Save device info to cloud</string>
+    <string name="guide_back">Back</string>
+    <string name="guide_next">Next</string>
+    <string name="guide_finish">Finish</string>
+
+    <string name="profile_settings">Profile Settings</string>
+    <string name="cloud_data_sync">Cloud Data Sync</string>
+    <string name="sync_status_active">Active</string>
+    <string name="sync_status_inactive">Inactive</string>
+    <string name="device_information">Device Information</string>
+    <string name="device_id">Device ID</string>
+    <string name="sync_status">Sync Status</string>
+    <string name="danger_zone">Danger Zone</string>
+    <string name="delete_cloud_data">Delete Cloud Data</string>
+    <string name="delete_warning">This will delete your device information from the cloud</string>
 </resources>

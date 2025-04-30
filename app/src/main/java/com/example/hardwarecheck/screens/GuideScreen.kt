@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,23 +30,23 @@ fun GuideScreen(onFinish: () -> Unit) {
 
     val pages = listOf(
         TutorialPage(
-            title = "Discover your phone specifications",
-            description = "Uncover the full potential of your device. Instantly view detailed information about your phone's hardware.",
+            title = stringResource(id = R.string.guide_discover_title),
+            description = stringResource(id = R.string.guide_discover_description),
             icon = R.drawable.ic_device
         ),
         TutorialPage(
-            title = "Test your camera and sensors",
-            description = "Check if everything's working as it should. Easily test your phone's camera and built-in sensors.",
+            title = stringResource(id = R.string.guide_test_title),
+            description = stringResource(id = R.string.guide_test_description),
             icon = R.drawable.ic_camera
         ),
         TutorialPage(
-            title = "Enhance the app by sharing your phone details",
-            description = "Share your device information to unlock additional features and personalize your experience.",
+            title = stringResource(id = R.string.guide_enhance_title),
+            description = stringResource(id = R.string.guide_enhance_description),
             icon = R.drawable.ic_magic
         ),
         TutorialPage(
-            title = "Control your data",
-            description = "Choose whether to save device details to the cloud for feature enhancement.",
+            title = stringResource(id = R.string.guide_control_title),
+            description = stringResource(id = R.string.guide_control_description),
             icon = R.drawable.build
         )
     )
@@ -63,7 +64,7 @@ fun GuideScreen(onFinish: () -> Unit) {
             IconButton(onClick = onFinish) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_clear),
-                    contentDescription = "Exit",
+                    contentDescription = stringResource(id = R.string.guide_exit),
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }
@@ -88,7 +89,7 @@ fun GuideScreen(onFinish: () -> Unit) {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Save device info to cloud")
+                Text(stringResource(id = R.string.guide_save_data))
                 Spacer(modifier = Modifier.width(8.dp))
                 Switch(
                     checked = saveDataEnabled,
@@ -107,7 +108,6 @@ fun GuideScreen(onFinish: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Back Button
             TextButton(
                 onClick = {
                     if (pagerState.currentPage > 0) {
@@ -118,10 +118,9 @@ fun GuideScreen(onFinish: () -> Unit) {
                 },
                 enabled = pagerState.currentPage > 0
             ) {
-                Text("Back")
+                Text(stringResource(id = R.string.guide_back))
             }
 
-            // Page Dots
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -138,7 +137,6 @@ fun GuideScreen(onFinish: () -> Unit) {
                 }
             }
 
-            // Next/Finish Button
             TextButton(
                 onClick = {
                     if (pagerState.currentPage < pages.size - 1) {
@@ -150,7 +148,13 @@ fun GuideScreen(onFinish: () -> Unit) {
                     }
                 }
             ) {
-                Text(if (pagerState.currentPage == pages.size - 1) "Finish" else "Next")
+                Text(
+                    text = if (pagerState.currentPage == pages.size - 1) {
+                        stringResource(id = R.string.guide_finish)
+                    } else {
+                        stringResource(id = R.string.guide_next)
+                    }
+                )
             }
         }
     }

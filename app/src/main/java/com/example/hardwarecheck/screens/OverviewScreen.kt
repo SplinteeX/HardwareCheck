@@ -17,10 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hardwarecheck.utils.LocationUtil
+import com.example.hardwarecheck.R
+import androidx.compose.ui.res.stringResource
 
 @Composable
 fun OverviewScreen(navController: NavController) {
-    val location by remember { derivedStateOf { LocationUtil.savedLocation ?: "Haetaan sijaintia..." } }
+    val location = LocationUtil.savedLocation ?: stringResource(id = R.string.fetching_location)
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
@@ -42,7 +44,7 @@ fun OverviewScreen(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Overview",
+                text = stringResource(id = R.string.overview),
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
@@ -62,22 +64,22 @@ fun OverviewScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         FeatureCard(
-            title = "Last 5 Devices",
-            description = "View recently detected devices.",
+            title = stringResource(id = R.string.last_5_devices),
+            description = stringResource(id = R.string.recent_devices),
             icon = Icons.Default.Person,
             onClick = { navController.navigate("recent_devices") }
         )
 
         FeatureCard(
-            title = "Most Common Specs",
-            description = "See frequently reported technical specifications.",
+            title = stringResource(id = R.string.common_specs),
+            description = stringResource(id = R.string.reported_specs),
             icon = Icons.Default.Person,
             onClick = { navController.navigate("common_specs") }
         )
 
         FeatureCard(
-            title = "App Usage by Country",
-            description = "Top 10 countries using this app.",
+            title = stringResource(id = R.string.app_usage),
+            description = stringResource(id = R.string.top_countries),
             icon = Icons.Default.Person,
             onClick = { navController.navigate("top_countries") }
         )
@@ -94,7 +96,7 @@ fun LocationCard(location: String) {
         colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
-            Text("Sijainti", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(id = R.string.location), style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(6.dp))
             Text(text = location, fontWeight = FontWeight.Medium)
         }
@@ -134,7 +136,7 @@ fun FeatureCard(title: String, description: String, icon: ImageVector, onClick: 
                 Text(description, style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Read more →",
+                    text = stringResource(id = R.string.read_more),
                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.primary)
                 )
             }

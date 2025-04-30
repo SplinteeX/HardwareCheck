@@ -2,6 +2,8 @@ package com.example.hardwarecheck
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -28,23 +30,30 @@ import com.google.firebase.FirebaseApp
 class MainActivity : ComponentActivity() {
     @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
+        val savedLanguage = PreferenceHelper.getAppLanguage(this)
+        PreferenceHelper.applyLocale(this, savedLanguage)
+
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
 
         val firestoreManager = FirestoreManager()
-
         val deviceInfo = HardwareInfoUtils.collectDeviceInfo(this)
-        val deviceId = android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ANDROID_ID)
+        val deviceId = android.provider.Settings.Secure.getString(
+            contentResolver,
+            android.provider.Settings.Secure.ANDROID_ID
+        )
 
-        // Save device info if enabled
         if (PreferenceHelper.isSaveDataEnabled(this)) {
             firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
         }
 
-        // Load location once and store in LocationHolder
         if (LocationUtil.savedLocation == null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
                 LocationUtil.getCityAndCountry(this) { result ->
                     LocationUtil.savedLocation = result
                 }
@@ -63,6 +72,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        // Apply language to base context
+        super.attachBaseContext(
+            ContextWrapper(
+                newBase.apply {
+                    PreferenceHelper.applyLocale(this, PreferenceHelper.getAppLanguage(this))
+                }
+            )
+        )
     }
 }
 

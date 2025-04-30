@@ -6,14 +6,21 @@ import android.location.Geocoder
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.hardwarecheck.R
 import com.google.android.gms.location.LocationServices
 import java.util.*
 
 object LocationUtil {
     var savedLocation by mutableStateOf<String?>(null)
+    private var currentLocale: Locale = Locale.getDefault()
 
     @SuppressLint("MissingPermission")
     fun getCityAndCountry(context: Context, onResult: (String) -> Unit = {}) {
+        if (currentLocale != Locale.getDefault()) {
+            savedLocation = null
+            currentLocale = Locale.getDefault()
+        }
+
         savedLocation?.let {
             onResult(it)
             return
@@ -38,11 +45,11 @@ object LocationUtil {
                         savedLocation = "$city, $country"
                         onResult(savedLocation!!)
                     } else {
-                        savedLocation = "Sijaintia ei löytynyt"
+                        savedLocation = context.getString(R.string.location_not_found)
                         onResult(savedLocation!!)
                     }
                 } else {
-                    savedLocation = "Sijaintia ei saatavilla"
+                    savedLocation = context.getString(R.string.location_unavailable)
                     onResult(savedLocation!!)
                 }
                 fusedLocationClient.removeLocationUpdates(this)

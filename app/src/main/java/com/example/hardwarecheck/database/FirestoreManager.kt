@@ -2,7 +2,6 @@ package com.example.hardwarecheck.database
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.ui.platform.LocalContext
 import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.utils.PreferenceHelper
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,7 +30,8 @@ class FirestoreManager {
             "baseband" to deviceInfo.baseband,
             "buildDate" to deviceInfo.buildDate,
             "wifiVersion" to deviceInfo.wifiVersion,
-            "bluetoothVersion" to deviceInfo.bluetoothVersion
+            "bluetoothVersion" to deviceInfo.bluetoothVersion,
+            "timestamp" to com.google.firebase.firestore.FieldValue.serverTimestamp()  // 🔥 This line adds it
         )
 
         db.collection("devices").document(deviceId)
@@ -63,6 +63,21 @@ class FirestoreManager {
             .delete()
             .addOnSuccessListener { Log.d("Firestore", "Device info deleted successfully") }
             .addOnFailureListener { e -> Log.w("Firestore", "Error deleting device info", e) }
+    }
+
+    fun getLatestDevices(callback: (List<DeviceInfo>) -> Unit) {
+        db.collection("devices")
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .limit(5)
+            .get()
+            .addOnSuccessListener { result ->
+                val deviceList = result.documents.mapNotNull { it.toObject(DeviceInfo::class.java) }
+                callback(deviceList)
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error fetching latest devices", e)
+                callback(emptyList())
+            }
     }
 
 }

@@ -35,7 +35,7 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Hardware Specifications",
+                text = "Hardware",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary

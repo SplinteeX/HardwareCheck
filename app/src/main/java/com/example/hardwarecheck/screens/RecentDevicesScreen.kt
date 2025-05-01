@@ -74,8 +74,18 @@ fun DeviceCard(device: DeviceInfo) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text("Model: ${device.model}", style = MaterialTheme.typography.titleMedium)
-            Text("Processor: ${device.processor}", style = MaterialTheme.typography.bodyMedium)
-            Text("Memory: ${device.memory}", style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("CPU: ${device.processor} (${device.cores} cores)", style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(modifier = Modifier.height(4.dp))
+            Text("GPU: ${device.gpu}", style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(modifier = Modifier.height(4.dp))
+            Text("RAM: ${device.memory}", style = MaterialTheme.typography.bodyMedium)
+
+            Spacer(modifier = Modifier.height(4.dp))
+            Text("Storage: ${device.storage}", style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

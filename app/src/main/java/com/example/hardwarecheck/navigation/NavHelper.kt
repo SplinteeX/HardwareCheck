@@ -18,9 +18,7 @@ import com.example.hardwarecheck.utils.HardwareInfoUtils
 import com.example.hardwarecheck.utils.PreferenceHelper
 
 import com.example.hardwarecheck.screens.CameraScreen // Import the screen
-import com.example.hardwarecheck.screens.CommonSpecsScreen
 import com.example.hardwarecheck.screens.RecentDevicesScreen
-import com.example.hardwarecheck.screens.TopCountriesScreen
 
 @Composable
 fun AppNavHost(
@@ -64,12 +62,6 @@ fun AppNavHost(
         }
         composable("recent_devices") {
             RecentDevicesScreen(navController = navController)
-        }
-        composable("common_specs") {
-            CommonSpecsScreen(navController = navController)
-        }
-        composable("top_countries") {
-            TopCountriesScreen(navController = navController)
         }
     }
 }

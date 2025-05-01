@@ -38,16 +38,19 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
 
         val firestoreManager = FirestoreManager()
+
         val deviceInfo = HardwareInfoUtils.collectDeviceInfo(this)
         val deviceId = android.provider.Settings.Secure.getString(
             contentResolver,
             android.provider.Settings.Secure.ANDROID_ID
         )
 
+        // Save device info if enabled
         if (PreferenceHelper.isSaveDataEnabled(this)) {
             firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
         }
 
+        // Handle location fetching if not already saved
         if (LocationUtil.savedLocation == null) {
             if (ActivityCompat.checkSelfPermission(
                     this,

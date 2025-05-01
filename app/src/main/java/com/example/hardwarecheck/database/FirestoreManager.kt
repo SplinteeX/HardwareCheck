@@ -2,14 +2,15 @@ package com.example.hardwarecheck.database
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.ui.platform.LocalContext
 import com.example.hardwarecheck.model.DeviceInfo
 import com.example.hardwarecheck.utils.PreferenceHelper
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreManager {
     private val db = FirebaseFirestore.getInstance()
-    // Save DeviceInfo to Firestore
+
+    // Save DeviceInfo to Firestore (no location fetch)
     fun saveDeviceInfo(context: Context, deviceId: String, deviceInfo: DeviceInfo) {
         if (!PreferenceHelper.isSaveDataEnabled(context)) {
             Log.d("Firestore", "Data saving is disabled by user preference")
@@ -31,13 +32,18 @@ class FirestoreManager {
             "baseband" to deviceInfo.baseband,
             "buildDate" to deviceInfo.buildDate,
             "wifiVersion" to deviceInfo.wifiVersion,
-            "bluetoothVersion" to deviceInfo.bluetoothVersion
+            "bluetoothVersion" to deviceInfo.bluetoothVersion,
+            "timestamp" to FieldValue.serverTimestamp()
         )
 
         db.collection("devices").document(deviceId)
             .set(deviceInfoMap)
-            .addOnSuccessListener { Log.d("Firestore", "Device info saved successfully") }
-            .addOnFailureListener { e -> Log.w("Firestore", "Error saving device info", e) }
+            .addOnSuccessListener {
+                Log.d("Firestore", "Device info saved successfully")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error saving device info", e)
+            }
     }
 
     // Retrieve DeviceInfo from Firestore
@@ -45,7 +51,7 @@ class FirestoreManager {
         db.collection("devices").document(deviceId)
             .get()
             .addOnSuccessListener { document ->
-                if (document != null) {
+                if (document != null && document.exists()) {
                     val deviceInfo = document.toObject(DeviceInfo::class.java)
                     callback(deviceInfo)
                 } else {
@@ -58,11 +64,32 @@ class FirestoreManager {
                 callback(null)
             }
     }
+
+    // Delete device info
     fun deleteDeviceInfo(deviceId: String) {
         db.collection("devices").document(deviceId)
             .delete()
-            .addOnSuccessListener { Log.d("Firestore", "Device info deleted successfully") }
-            .addOnFailureListener { e -> Log.w("Firestore", "Error deleting device info", e) }
+            .addOnSuccessListener {
+                Log.d("Firestore", "Device info deleted successfully")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error deleting device info", e)
+            }
     }
 
+    // Get latest 5 device entries
+    fun getLatestDevices(callback: (List<DeviceInfo>) -> Unit) {
+        db.collection("devices")
+            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .limit(5)
+            .get()
+            .addOnSuccessListener { result ->
+                val deviceList = result.documents.mapNotNull { it.toObject(DeviceInfo::class.java) }
+                callback(deviceList)
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error fetching latest devices", e)
+                callback(emptyList())
+            }
+    }
 }

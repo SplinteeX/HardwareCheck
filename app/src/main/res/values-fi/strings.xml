@@ -24,10 +24,7 @@
     <string name="last_5_devices">Viimeiset 5 laitetta</string>
     <string name="recent_devices">Tarkastele viimeisiä havaittuja laitteita.</string>
     <string name="read_more">Lue lisää →</string>
-    <string name="common_specs">Yleisimmät tekniset tiedot</string>
     <string name="reported_specs">Katso eniten raportoidut tekniset tiedot.</string>
-    <string name="app_usage">Sovelluksen käyttö maittain</string>
-    <string name="top_countries">Top 10 maata jotka käyttävät tätä sovellusta eniten</string>
     <string name="save_data">Tallenna laitteen tiedot pilveen</string>
     <string name="connected_to_cloud">Yhdistetty pilvitietokantaan</string>
     <string name="local_mode">Paikallinen tila (tietoja ei synkronoitu)</string>

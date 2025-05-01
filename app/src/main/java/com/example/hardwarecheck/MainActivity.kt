@@ -50,21 +50,6 @@ class MainActivity : ComponentActivity() {
             firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
         }
 
-        // Handle location fetching if not already saved
-        if (LocationUtil.savedLocation == null) {
-            if (ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                LocationUtil.getCityAndCountry(this) { result ->
-                    LocationUtil.savedLocation = result
-                }
-            } else {
-                LocationUtil.savedLocation = getCityAndCountryFromIP()
-            }
-        }
-
         setContent {
             HardwareCheckTheme {
                 Surface(

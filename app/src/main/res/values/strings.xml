@@ -23,10 +23,8 @@
     <string name="last_5_devices">Last 5 Devices</string>
     <string name="recent_devices">View recently detected devices.</string>
     <string name="read_more">Read more →</string>
-    <string name="common_specs">Most Common Specs</string>
     <string name="reported_specs">See frequently reported technical specifications.</string>
-    <string name="app_usage">App Usage by Country</string>
-    <string name="top_countries">Top 10 countries using this app</string>
+
     <string name="save_data">Save device info to cloud</string>
     <string name="connected_to_cloud">Connected to cloud database</string>
     <string name="local_mode">Local mode (data not synced)</string>

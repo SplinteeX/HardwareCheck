@@ -20,12 +20,12 @@ import com.example.hardwarecheck.utils.LocationUtil
 
 @Composable
 fun OverviewScreen(navController: NavController) {
-    val location by remember { derivedStateOf { LocationUtil.savedLocation ?: "Haetaan sijaintia..." } }
     val context = LocalContext.current
+    var location by remember { mutableStateOf("Haetaan sijaintia...") }
 
     LaunchedEffect(Unit) {
-        if (LocationUtil.savedLocation == null) {
-            LocationUtil.getCityAndCountry(context)
+        LocationUtil.getCityAndCountry(context) {
+            location = it
         }
     }
 
@@ -67,22 +67,9 @@ fun OverviewScreen(navController: NavController) {
             icon = Icons.Default.Person,
             onClick = { navController.navigate("recent_devices") }
         )
-
-        FeatureCard(
-            title = "Most Common Specs",
-            description = "See frequently reported technical specifications.",
-            icon = Icons.Default.Person,
-            onClick = { navController.navigate("common_specs") }
-        )
-
-        FeatureCard(
-            title = "App Usage by Country",
-            description = "Top 10 countries using this app.",
-            icon = Icons.Default.Person,
-            onClick = { navController.navigate("top_countries") }
-        )
     }
 }
+
 
 @Composable
 fun LocationCard(location: String) {

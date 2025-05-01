@@ -12,10 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.hardwarecheck.R
 import com.example.hardwarecheck.utils.LocationUtil
 
 @Composable
@@ -42,7 +44,7 @@ fun OverviewScreen(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Overview",
+                text = stringResource(id = R.string.overview), // Update the text resource for "Overview"
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
@@ -51,7 +53,7 @@ fun OverviewScreen(navController: NavController) {
             IconButton(onClick = { navController.navigate("guide") }) {
                 Icon(
                     imageVector = Icons.Default.Info,
-                    contentDescription = "Opas",
+                    contentDescription = stringResource(id = R.string.guide), // Use string resource for "Opas"
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
@@ -62,8 +64,8 @@ fun OverviewScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         FeatureCard(
-            title = "Last 5 Devices",
-            description = "View recently detected devices.",
+            title = stringResource(id = R.string.last_5_devices), // Use string resource for "Last 5 Devices"
+            description = stringResource(id = R.string.recent_devices), // Use string resource for "View recently detected devices."
             icon = Icons.Default.Person,
             onClick = { navController.navigate("recent_devices") }
         )
@@ -81,7 +83,7 @@ fun LocationCard(location: String) {
         colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
-            Text("Sijainti", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(id = R.string.location), style = MaterialTheme.typography.titleMedium) // Use string resource for "Location"
             Spacer(modifier = Modifier.height(6.dp))
             Text(text = location, fontWeight = FontWeight.Medium)
         }
@@ -121,7 +123,7 @@ fun FeatureCard(title: String, description: String, icon: ImageVector, onClick: 
                 Text(description, style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Read more →",
+                    text = stringResource(id = R.string.read_more), // Use string resource for "Read more →"
                     style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.primary)
                 )
             }

@@ -20,12 +20,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import com.example.hardwarecheck.R
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.objects.DetectedObject
 import com.google.mlkit.vision.objects.ObjectDetection
@@ -139,7 +141,7 @@ fun CameraScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Camera Analysis",
+                    text = stringResource(id = R.string.camera_analysis),
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -147,11 +149,15 @@ fun CameraScreen(navController: NavController) {
 
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text = "Brightness: ${"%.2f".format(brightness.value)}%",
+                        text = stringResource(
+                            id = R.string.brightness,
+                            brightness.value,
+                            detectedObjects.value.size
+                        ),
                         fontSize = 16.sp
                     )
                     Text(
-                        text = "Objects: ${detectedObjects.value.size}",
+                        text = stringResource(id = R.string.objects) + ": ${detectedObjects.value.size}",
                         fontSize = 16.sp
                     )
                     Button(
@@ -160,7 +166,7 @@ fun CameraScreen(navController: NavController) {
                         },
                         modifier = Modifier.align(Alignment.End)
                     ) {
-                        Text(if (cameraActive.value) "Stop Camera" else "Start Camera")
+                        Text(if (cameraActive.value) stringResource(id = R.string.stop_camera) else stringResource(id = R.string.start_camera))
                     }
                 }
             }
@@ -209,7 +215,7 @@ fun DetectedObjectsInfo(
     if (objects.isNotEmpty()) {
         Column(modifier = modifier) {
             Text(
-                "Detected Objects:",
+                text = stringResource(id = R.string.objects_detected),
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )

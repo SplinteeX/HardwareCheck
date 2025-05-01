@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.hardwarecheck.database.FirestoreManager
 import com.example.hardwarecheck.model.DeviceInfo
+import androidx.compose.ui.res.stringResource
+import com.example.hardwarecheck.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,12 +32,12 @@ fun RecentDevicesScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Recent Devices") },
+                title = { Text(stringResource(id = R.string.recent_devices)) }, // Updated with string resource
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(id = R.string.guide_back) // Updated with string resource
                         )
                     }
                 }
@@ -73,19 +75,19 @@ fun DeviceCard(device: DeviceInfo) {
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("Model: ${device.model}", style = MaterialTheme.typography.titleMedium)
+            Text("${stringResource(id = R.string.device_model)}: ${device.model}", style = MaterialTheme.typography.titleMedium)
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("CPU: ${device.processor} (${device.cores} cores)", style = MaterialTheme.typography.bodyMedium)
+            Text("${stringResource(id = R.string.processor)}: ${device.processor} (${device.cores} ${stringResource(id = R.string.cpu_cores)})", style = MaterialTheme.typography.bodyMedium)
 
             Spacer(modifier = Modifier.height(4.dp))
-            Text("GPU: ${device.gpu}", style = MaterialTheme.typography.bodyMedium)
+            Text("${stringResource(id = R.string.gpu)}: ${device.gpu}", style = MaterialTheme.typography.bodyMedium)
 
             Spacer(modifier = Modifier.height(4.dp))
-            Text("RAM: ${device.memory}", style = MaterialTheme.typography.bodyMedium)
+            Text("${stringResource(id = R.string.memory)}: ${device.memory}", style = MaterialTheme.typography.bodyMedium)
 
             Spacer(modifier = Modifier.height(4.dp))
-            Text("Storage: ${device.storage}", style = MaterialTheme.typography.bodyMedium)
+            Text("${stringResource(id = R.string.storage)}: ${device.storage}", style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

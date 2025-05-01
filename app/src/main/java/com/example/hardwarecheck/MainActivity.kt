@@ -1,6 +1,10 @@
 package com.example.hardwarecheck
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
 import androidx.navigation.compose.rememberNavController
 import com.example.hardwarecheck.database.FirestoreManager
 import com.example.hardwarecheck.navigation.AppNavHost
@@ -17,12 +22,17 @@ import com.example.hardwarecheck.navigation.BottomNavigationBar
 import com.example.hardwarecheck.navigation.isGuideScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
+import com.example.hardwarecheck.utils.LocationUtil
 import com.example.hardwarecheck.utils.PreferenceHelper
+import com.example.hardwarecheck.utils.getCityAndCountryFromIP
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
+        val savedLanguage = PreferenceHelper.getAppLanguage(this)
+        PreferenceHelper.applyLocale(this, savedLanguage)
+
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
@@ -30,13 +40,15 @@ class MainActivity : ComponentActivity() {
         val firestoreManager = FirestoreManager()
 
         val deviceInfo = HardwareInfoUtils.collectDeviceInfo(this)
-        val deviceId = android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ANDROID_ID)
+        val deviceId = android.provider.Settings.Secure.getString(
+            contentResolver,
+            android.provider.Settings.Secure.ANDROID_ID
+        )
 
         // Save device info if enabled
         if (PreferenceHelper.isSaveDataEnabled(this)) {
             firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
         }
-
 
         setContent {
             HardwareCheckTheme {
@@ -48,6 +60,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        // Apply language to base context
+        super.attachBaseContext(
+            ContextWrapper(
+                newBase.apply {
+                    PreferenceHelper.applyLocale(this, PreferenceHelper.getAppLanguage(this))
+                }
+            )
+        )
     }
 }
 

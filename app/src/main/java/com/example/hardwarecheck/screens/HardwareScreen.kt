@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import com.example.hardwarecheck.R
 import com.example.hardwarecheck.model.DeviceInfo
@@ -34,7 +35,7 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Hardware",
+                text = stringResource(id = R.string.hardware_specifications),
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
@@ -49,21 +50,21 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
         }
 
         val hardwareInfoItems = listOf(
-            Triple(R.drawable.os, "Device Model", deviceInfo.model),
-            Triple(R.drawable.os, "Operating System", deviceInfo.osInfo),
-            Triple(R.drawable.memory, "Processor", deviceInfo.processor),
-            Triple(R.drawable.memory, "CPU Cores", deviceInfo.cores),
-            Triple(R.drawable.memory, "Memory (RAM)", deviceInfo.memory),
-            Triple(R.drawable.display, "Screen", deviceInfo.screen),
-            Triple(R.drawable.storage, "Storage", deviceInfo.storage),
-            Triple(R.drawable.gpu, "GPU", deviceInfo.gpu),
-            Triple(R.drawable.sensors, "Sensors", deviceInfo.sensors),
-            Triple(R.drawable.battery, "Battery", deviceInfo.battery),
-            Triple(R.drawable.progress, "Uptime", deviceInfo.uptime),
-            Triple(R.drawable.baseband, "Baseband", deviceInfo.baseband),
-            Triple(R.drawable.build, "Build Date", deviceInfo.buildDate),
-            Triple(R.drawable.wifi, "Wi-Fi Version", deviceInfo.wifiVersion),
-            Triple(R.drawable.bluetooth, "Bluetooth Version", deviceInfo.bluetoothVersion),
+            Triple(R.drawable.os, stringResource(id = R.string.device_model), deviceInfo.model),
+            Triple(R.drawable.os, stringResource(id = R.string.operating_system), deviceInfo.osInfo),
+            Triple(R.drawable.memory, stringResource(id = R.string.processor), deviceInfo.processor),
+            Triple(R.drawable.memory, stringResource(id = R.string.cpu_cores), deviceInfo.cores),
+            Triple(R.drawable.memory, stringResource(id = R.string.memory), deviceInfo.memory),
+            Triple(R.drawable.display, stringResource(id = R.string.screen), deviceInfo.screen),
+            Triple(R.drawable.storage, stringResource(id = R.string.storage), deviceInfo.storage),
+            Triple(R.drawable.gpu, stringResource(id = R.string.gpu), deviceInfo.gpu),
+            Triple(R.drawable.sensors, stringResource(id = R.string.sensors), deviceInfo.sensors),
+            Triple(R.drawable.battery, stringResource(id = R.string.battery), deviceInfo.battery),
+            Triple(R.drawable.progress, stringResource(id = R.string.uptime), deviceInfo.uptime),
+            Triple(R.drawable.baseband, stringResource(id = R.string.baseband), deviceInfo.baseband),
+            Triple(R.drawable.build, stringResource(id = R.string.build_date), deviceInfo.buildDate),
+            Triple(R.drawable.wifi, stringResource(id = R.string.wifi_version), deviceInfo.wifiVersion),
+            Triple(R.drawable.bluetooth, stringResource(id = R.string.bluetooth_version), deviceInfo.bluetoothVersion),
         )
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -77,7 +78,6 @@ fun HardwareScreen(deviceInfo: DeviceInfo, navController: NavController) {
         }
     }
 }
-
 
 @Composable
 fun InfoItemCard(icon: Painter, title: String, value: String) {

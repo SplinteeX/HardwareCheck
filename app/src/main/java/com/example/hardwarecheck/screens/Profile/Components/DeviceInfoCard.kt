@@ -7,8 +7,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.hardwarecheck.R
 
 @Composable
 fun DeviceInfoCard(
@@ -17,12 +19,15 @@ fun DeviceInfoCard(
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
-            text = "Device Information",
+            text = stringResource(id = R.string.device_information),
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        InfoRow("Device ID", deviceId.take(8) + "..." + deviceId.takeLast(4))
-        InfoRow("Sync Status", if (isSaveDataEnabled) "Active" else "Inactive")
+        InfoRow(stringResource(id = R.string.device_id), deviceId.take(8) + "..." + deviceId.takeLast(4))
+        InfoRow(
+            stringResource(id = R.string.sync_status),
+            if (isSaveDataEnabled) stringResource(id = R.string.sync_status_active) else stringResource(id = R.string.sync_status_inactive)
+        )
     }
 }
 

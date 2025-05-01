@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hardware">Laitteisto</string>
+    <string name="overview">Yleiskatsaus</string>
+    <string name="profile">Profiili</string>
+    <string name="camera">Kamera</string>
+
+    <string name="camera_analysis">Kameran analyysi</string>
+    <string name="objects">Objektit</string>
+    <string name="brightness">Kirkkaus</string>
+    <string name="objects_detected">Havaittu objekti</string>
+    <string name="stop_camera">Pysäytä kamera</string>
+    <string name="start_camera">Käynnistä kamera</string>
+    <string name="permission_required">Kameran käyttöoikeus vaaditaan tämän toiminnon käyttämiseen</string>
+    <string name="language_option">Kieli</string>
+    <string name="english">Englanti</string>
+    <string name="finnish">Suomi</string>
+    <string name="guide">Opas</string>
+
+    <string name="location">Sijainti</string>
+    <string name="fetching_location">Haetaan sijaintia...</string>
+    <string name="location_not_found">Sijaintia ei löytynyt</string>
+    <string name="location_unavailable">Sijaintia ei saatavilla</string>
+    <string name="last_5_devices">Viimeiset 5 laitetta</string>
+    <string name="recent_devices">Tarkastele viimeisiä havaittuja laitteita.</string>
+    <string name="read_more">Lue lisää →</string>
+    <string name="reported_specs">Katso eniten raportoidut tekniset tiedot.</string>
+    <string name="save_data">Tallenna laitteen tiedot pilveen</string>
+    <string name="connected_to_cloud">Yhdistetty pilvitietokantaan</string>
+    <string name="local_mode">Paikallinen tila (tietoja ei synkronoitu)</string>
+    <string name="delete_data">Poista tiedot</string>
+
+    <string name="hardware_specifications">Laitteen tiedot</string>
+    <string name="device_model">Laitemalli</string>
+    <string name="operating_system">Käyttöjärjestelmä</string>
+    <string name="processor">Suoritin</string>
+    <string name="cpu_cores">Suoritinytimet</string>
+    <string name="memory">Muisti (RAM)</string>
+    <string name="screen">Näyttö</string>
+    <string name="storage">Tallennustila</string>
+    <string name="gpu">Näytönohjain</string>
+    <string name="sensors">Anturit</string>
+    <string name="battery">Akku</string>
+    <string name="uptime">Käyttöaika</string>
+    <string name="baseband">Baseband</string>
+    <string name="build_date">Koontipäivämäärä</string>
+    <string name="wifi_version">Wi-Fi-versio</string>
+    <string name="bluetooth_version">Bluetooth-versio</string>
+
+    <string name="guide_exit">Poistu</string>
+    <string name="guide_discover_title">Tutustu puhelimesi teknisiin tietoihin</string>
+    <string name="guide_discover_description">Hyödynnä laitteesi koko potentiaali. Näe yksityiskohtaiset tiedot puhelimesi laitteistosta välittömästi.</string>
+    <string name="guide_test_title">Testaa kamerasi ja anturisi</string>
+    <string name="guide_test_description">Tarkista, että kaikki toimii kuten pitää. Testaa helposti puhelimesi kamera ja sisäänrakennetut anturit.</string>
+    <string name="guide_enhance_title">Paranna sovellusta jakamalla puhelimesi tiedot</string>
+    <string name="guide_enhance_description">Jaa laitteesi tiedot avataksesi lisäominaisuuksia ja personoidaksesi kokemuksesi.</string>
+    <string name="guide_control_title">Hallitse tietojasi</string>
+    <string name="guide_control_description">Valitse, tallennetaanko laitteen tiedot pilveen ominaisuuksien parantamiseksi.</string>
+    <string name="guide_save_data">Tallenna laitteen tiedot pilveen</string>
+    <string name="guide_back">Takaisin</string>
+    <string name="guide_next">Seuraava</string>
+    <string name="guide_finish">Valmis</string>
+
+    <string name="profile_settings">Profiiliasetukset</string>
+    <string name="cloud_data_sync">Pilvitietojen synkronointi</string>
+    <string name="sync_status_active">Aktiivinen</string>
+    <string name="sync_status_inactive">Ei aktiivinen</string>
+    <string name="device_information">Laitetiedot</string>
+    <string name="device_id">Laitetunnus</string>
+    <string name="sync_status">Synkronointitila</string>
+    <string name="danger_zone">Vaaravyöhyke</string>
+    <string name="delete_cloud_data">Poista pilvitiedot</string>
+    <string name="delete_warning">Tämä poistaa laitetietosi pilvestä</string>
+</resources>

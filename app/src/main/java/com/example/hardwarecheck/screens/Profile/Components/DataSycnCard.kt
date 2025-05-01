@@ -13,8 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-
+import com.example.hardwarecheck.R
 
 @Composable
 fun DataSyncCard(
@@ -31,7 +32,7 @@ fun DataSyncCard(
         ) {
             Column {
                 Text(
-                    text = "Cloud Data Sync",
+                    text = stringResource(id = R.string.cloud_data_sync),
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
                 )
                 Text(

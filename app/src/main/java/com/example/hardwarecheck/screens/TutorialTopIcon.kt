@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 
 
-
 @Composable
 fun TutorialTopIcon(onHelpClick: () -> Unit) {
     IconButton(onClick = onHelpClick) {

@@ -39,10 +39,11 @@
     <string name="screen">Näyttö</string>
     <string name="storage">Tallennustila</string>
     <string name="gpu">Näytönohjain</string>
+    <string name="gpu_info">Emulaattori käyttössä: GPU-tiedot eivät välttämättä ole tarkkoja</string>
     <string name="sensors">Anturit</string>
     <string name="battery">Akku</string>
     <string name="uptime">Käyttöaika</string>
-    <string name="baseband">Baseband</string>
+    <string name="baseband">Kantataajuuskaista</string>
     <string name="build_date">Koontipäivämäärä</string>
     <string name="wifi_version">Wi-Fi-versio</string>
     <string name="bluetooth_version">Bluetooth-versio</string>

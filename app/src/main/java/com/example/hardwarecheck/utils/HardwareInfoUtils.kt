@@ -7,6 +7,7 @@ import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.*
+import com.example.hardwarecheck.R
 import com.example.hardwarecheck.model.DeviceInfo
 import java.io.File
 import java.util.*
@@ -22,7 +23,7 @@ object HardwareInfoUtils {
             memory = getTotalRAM(context),
             cores = getCoresCount(),
             storage = getStorageInfo(),
-            gpu = getGpuInfo(),
+            gpu = getGpuInfo(context),
             sensors = getSensorsCount(context),
             screen = getScreenInfo(context),
             battery = getBatteryInfo(context),
@@ -110,10 +111,10 @@ object HardwareInfoUtils {
         return "%.1f GB".format(totalBytes / (1024.0 * 1024 * 1024))
     }
 
-    private fun getGpuInfo(): String {
+    private fun getGpuInfo(context: Context): String {
         return try {
             if (isEmulator()) {
-                "Running on Emulator: GPU info may not be accurate"
+                context.getString(R.string.gpu_info)
             } else {
                 val glRenderer =
                     android.opengl.GLES20.glGetString(android.opengl.GLES20.GL_RENDERER)

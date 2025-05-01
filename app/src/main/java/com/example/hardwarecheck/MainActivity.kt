@@ -42,16 +42,6 @@ class MainActivity : ComponentActivity() {
             firestoreManager.saveDeviceInfo(context = this, deviceId, deviceInfo)
         }
 
-        // Load location once and store in LocationHolder
-        if (LocationUtil.savedLocation == null) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                LocationUtil.getCityAndCountry(this) { result ->
-                    LocationUtil.savedLocation = result
-                }
-            } else {
-                LocationUtil.savedLocation = getCityAndCountryFromIP()
-            }
-        }
 
         setContent {
             HardwareCheckTheme {

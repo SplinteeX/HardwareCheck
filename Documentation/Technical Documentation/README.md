@@ -11,7 +11,7 @@ This documentation is designed for:
 
 ## Screens
 ### OverviewScreen
-Purpose: Main dashboard screen that displays device information and provides navigation to other features.
+Purpose: Main dashboard screen that displays device location and recently added devices.
 
 ### RecentDevicesScreen
 Purpose: Displays a list of recently checked devices with their information.
@@ -20,10 +20,10 @@ Purpose: Displays a list of recently checked devices with their information.
 Purpose: User profile management screen for settings and preferences.
 
 ### HardwareScreen
-Purpose: Detailed hardware information display and analysis.
+Purpose: Detailed hardware information display.
 
 ### CameraScreen
-Purpose: Camera testing and information display.
+Purpose: Camera testing (Lumination and Object Detection).
 
 ### GuideScreen
 Purpose: User guide and tutorial screen.
@@ -38,13 +38,33 @@ Purpose: Handle screen navigation and routing within the application.
 - Deep linking support
 
 ## Database
-Purpose: Manage local data storage and persistence.
+Purpose: Hold device data in FireBase.
 
-### Components
-- Room database configuration
-- Entity definitions
-- DAO interfaces
-- Database migrations
+#### Data Structure
+- The database contains a collection named `devices`.
+- Each device entry includes:
+  - `Model`: Label or identifier for the device.
+  - `osInfo`: Current state including OS version, security patch, and kernel info..
+  - `Processor`: Processor details.
+  - `Memory`: The amount of Memory and Physical Memory.
+  - `Cores`: CPU Cores.
+  - `Storage`: The amount of Storage.
+  - `GPU`: GPU Information.
+  - `Sensors`: Sensor data.
+  - `Battery`: Gathers the battery status (%3).
+  - `Uptime`: How long the phone has been on.
+  - `Baseband`: Baseband version.
+  - `BuildDate`: Build date.
+  - `WifiVersion`: Latest data update for Wi-Fi version.
+  - `BluetoothVersion`: Latest data update for Bluetooth Version.
+  - `Timestamp`: Timestamp of the time when device has been added to Database.
+
+#### Data Model
+- A consistent data model is used to represent device entries.
+- Ensures uniformity when interacting with the database.
+
+#### Data Operations
+- Devices can be added, removed, or retrieved using their unique ID.
 
 ## Model
 Purpose: Define data structures and business logic.
@@ -56,7 +76,7 @@ Purpose: Define data structures and business logic.
 - Camera details
 
 ## UI
-Purpose: Provide reusable UI components and styling.
+Purpose: UI components and styling.
 
 ### Components
 - Material Design 3 components
@@ -98,13 +118,3 @@ Purpose: Manage application localization and internationalization.
 - String resources
 - Language selection
 - Format handling
-- RTL support
-
-## Testing
-Purpose: Support application testing and quality assurance.
-
-### Components
-- Unit tests
-- UI tests
-- Integration tests
-- Test utilities 

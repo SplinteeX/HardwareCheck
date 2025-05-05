@@ -1,20 +1,19 @@
 package com.example.hardwarecheck
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.app.ActivityCompat
 import androidx.navigation.compose.rememberNavController
 import com.example.hardwarecheck.database.FirestoreManager
 import com.example.hardwarecheck.navigation.AppNavHost
@@ -22,9 +21,7 @@ import com.example.hardwarecheck.navigation.BottomNavigationBar
 import com.example.hardwarecheck.navigation.isGuideScreen
 import com.example.hardwarecheck.ui.theme.HardwareCheckTheme
 import com.example.hardwarecheck.utils.HardwareInfoUtils
-import com.example.hardwarecheck.utils.LocationUtil
 import com.example.hardwarecheck.utils.PreferenceHelper
-import com.example.hardwarecheck.utils.getCityAndCountryFromIP
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {

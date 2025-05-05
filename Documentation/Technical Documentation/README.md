@@ -102,15 +102,6 @@ Purpose: Application entry point and main activity.
 - Navigation setup
 - Lifecycle handling
 
-## Security
-Purpose: Handle application security and permissions.
-
-### Components
-- Permission management
-- Secure storage
-- Data encryption
-- Access control
-
 ## Localization
 Purpose: Manage application localization and internationalization.
 

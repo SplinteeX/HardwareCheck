@@ -11,6 +11,8 @@ HardwareCheck on Android-sovellus, jonka avulla käyttäjä voi tarkastella lait
 ## Tietosuoja
 Käyttäjällä on täysi kontrolli tietojensa säilyttämisestä ja jaosta. Kaikki tallennetut tiedot käsitellään luottamuksellisesti.
 
+Katso lisätietoa teknisistä ominaisuuksista ja käytöstä [Source Code Documentation](./Documentation/Technical%20Documentation).
+
 ## Asennus
 1. Kloonaa repositorio:  
    `git clone https://github.com/kayttaja/hardwarecheck.git`

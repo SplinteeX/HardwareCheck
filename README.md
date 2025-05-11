@@ -1,27 +1,30 @@
 # HardwareCheck
 
-HardwareCheck on Android-sovellus, jonka avulla käyttäjä voi tarkastella laitteensa teknisiä tietoja sekä testata sen eri ominaisuuksia, kuten kameraa. Sovellus kerää ja esittää laitteen tiedot selkeästi ja tarjoaa vertailutietoa yleisimmistä laitemalleista ja ominaisuuksista.
-
-## Ominaisuudet
-- Näyttää laitteen perustiedot: malli, prosessori, RAM, tallennustila jne.
-- Mahdollisuus testata laitteiston toimintoja, kuten kameraa
-- Käyttäjäprofiili ja mahdollisuus rajata, mitä tietoja tallennetaan
-- Vertailunäkymä: yleisimmät laitemallit, keskimääräiset näytönkoot yms.
-
-## Tietosuoja
-Käyttäjällä on täysi kontrolli tietojensa säilyttämisestä ja jaosta. Kaikki tallennetut tiedot käsitellään luottamuksellisesti.
-
-Katso lisätietoa teknisistä ominaisuuksista ja käytöstä [Source Code Documentation](./Documentation/Technical%20Documentation).
-
-## Asennus
-1. Kloonaa repositorio:  
-   `git clone https://github.com/kayttaja/hardwarecheck.git`
-2. Avaa Android Studio ja valitse projekti
-3. Rakenna ja suorita sovellus emulaattorilla tai fyysisellä laitteella
-
-## Kehitystyö
-Projekti etenee sprinteissä Scrum-menetelmällä, ja rooli Scrum-masterina vaihtuu viikoittain.
+**HardwareCheck** is an Android application that allows users to view their device's technical specifications and test various features, such as the camera. The app collects and displays device information clearly and provides comparison data for common device models and features.
 
 ---
 
-**Huom:** Sovellus on kehitteillä eikä vielä sisällä kaikkia lopullisia ominaisuuksia.
+## 📱 Features
+
+- Displays basic device information: model, processor, RAM, storage, etc.
+- Ability to test hardware functions, such as the camera
+- User profile with options to control what data is saved
+- Comparison view: most common device models, average screen sizes, etc.
+
+---
+
+## 🔒 Privacy
+
+Users have full control over the storage and sharing of their data. All saved information is handled confidentially.
+
+For more technical details and usage instructions, see the [Source Code Documentation](./Documentation/Technical%20Documentation).
+
+---
+
+## ⚙️ Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/kayttaja/hardwarecheck.git
+2. Open Android Studio and select the project.
+3. Build and run the app on an emulator or physical device.
